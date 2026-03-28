@@ -1,0 +1,184 @@
+.resource-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid var(--primary-color);
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resource-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.resource-card.checked {
+  opacity: 0.6;
+  border-left-color: var(--secondary-color);
+  background: hsl(120, 73%, 97%);
+}
+
+.resource-card.checked .resource-title {
+  text-decoration: line-through;
+  color: var(--text-light);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.resource-checkbox {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  accent-color: var(--secondary-color);
+}
+
+.resource-title {
+  flex: 1;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  word-break: break-word;
+}
+
+.card-index {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.card-body {
+  margin-bottom: 1rem;
+  min-height: 60px;
+}
+
+.content-preview {
+  color: var(--text-light);
+  line-height: 1.6;
+  word-break: break-word;
+  white-space: pre-wrap;
+  max-height: 120px;
+  overflow: hidden;
+  position: relative;
+}
+
+.more-indicator {
+  font-weight: 600;
+}
+
+.feedback-badge {
+  margin-top: 0.75rem;
+  display: inline-block;
+  background: hsl(38, 92%, 90%);
+  color: hsl(38, 92%, 30%);
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.edit-title {
+  font-size: 1rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.edit-content {
+  width: 100%;
+  resize: vertical;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card-footer {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-edit {
+  flex: 1;
+  min-width: 100px;
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #2563eb;
+}
+
+.btn-remove {
+  flex: 1;
+  min-width: 100px;
+  background: var(--danger-color);
+  color: white;
+}
+
+.btn-remove:hover {
+  background: #dc2626;
+}
+
+.btn-save {
+  flex: 1;
+  background: var(--secondary-color);
+  color: white;
+}
+
+.btn-save:hover {
+  background: #059669;
+}
+
+.btn-cancel {
+  flex: 1;
+  background: var(--text-light);
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #4b5563;
+}
+
+@media (max-width: 768px) {
+  .resource-card {
+    padding: 1rem;
+  }
+
+  .resource-title {
+    font-size: 1rem;
+  }
+
+  .card-footer {
+    gap: 0.5rem;
+  }
+
+  .btn-edit, .btn-remove {
+    min-width: 80px;
+    font-size: 0.9rem;
+  }
+}

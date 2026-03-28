@@ -1,0 +1,37 @@
+.resource-stack-container {
+  width: 100%;
+}
+
+.stack-title {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  perspective: 1000px;
+}
+
+.empty-state {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .stack-title {
+    font-size: 1.2rem;
+  }
+
+  .stack {
+    gap: 0.75rem;
+  }
+}
