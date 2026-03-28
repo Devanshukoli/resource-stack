@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import ResourceStack from './components/ResourceStack'
+import AppHeader from './components/AppHeader'
+import ResourcesModal from './components/ResourcesModal'
 import AddResourceForm from './components/AddResourceForm'
 import './App.css'
 
 function App() {
   const [resources, setResources] = useState([])
   const [loading, setLoading] = useState(true)
+  const [showResourcesModal, setShowResourcesModal] = useState(false)
 
   // Fetch resources on component mount
   useEffect(() => {
@@ -62,27 +64,27 @@ function App() {
 
   return (
     <div className="app-container">
-      <header className="app-header">
-        <h1>📚 Resource Stack</h1>
-        <p>Organize and manage your resources with ease</p>
-      </header>
+      <AppHeader 
+        resourceCount={resources.length}
+        onOpenResources={() => setShowResourcesModal(true)}
+      />
 
       <main className="app-main">
         <div className="app-content">
           <AddResourceForm onAddResource={handleAddResource} />
-          
-          {loading ? (
-            <div className="loading">Loading resources...</div>
-          ) : (
-            <ResourceStack
-              resources={resources}
-              onUpdateResource={handleUpdateResource}
-              onRemoveResource={handleRemoveResource}
-              onToggleCheck={handleToggleCheck}
-            />
-          )}
         </div>
       </main>
+
+      {showResourcesModal && (
+        <ResourcesModal
+          isOpen={showResourcesModal}
+          onClose={() => setShowResourcesModal(false)}
+          resources={resources}
+          onUpdateResource={handleUpdateResource}
+          onRemoveResource={handleRemoveResource}
+          onToggleCheck={handleToggleCheck}
+        />
+      )}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import FeedbackModal from './FeedbackModal'
 import './ResourceCard.css'
 
-function ResourceCard({ resource, index, onUpdate, onRemove, onToggleCheck }) {
+function ResourceCard({ resource, index, onUpdate, onRemove, onToggleCheck, isCompact = false }) {
   const [isEditing, setIsEditing] = useState(false)
   const [editTitle, setEditTitle] = useState(resource.title)
   const [editContent, setEditContent] = useState(resource.content)
@@ -48,7 +48,7 @@ function ResourceCard({ resource, index, onUpdate, onRemove, onToggleCheck }) {
             title="Mark as done"
           />
           <h3 className="resource-title">{resource.title}</h3>
-          <span className="card-index">#{index + 1}</span>
+          {!isCompact && <span className="card-index">#{index + 1}</span>}
         </div>
 
         <div className="card-body">
