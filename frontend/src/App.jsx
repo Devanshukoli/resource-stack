@@ -3,6 +3,7 @@ import axios from 'axios'
 import AppHeader from './components/AppHeader'
 import ResourcesModal from './components/ResourcesModal'
 import AddResourceForm from './components/AddResourceForm'
+import Footer from './components/Footer'
 import './App.css'
 
 function App() {
@@ -85,6 +86,8 @@ function App() {
           onToggleCheck={handleToggleCheck}
         />
       )}
+
+      <Footer />
     </div>
   )
 }
