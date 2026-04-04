@@ -1,5 +1,5 @@
 .add-resource-form {
-  background: white;
+  background: var(--card-bg);
   border-radius: 0.75rem;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -7,7 +7,7 @@
 
 .add-resource-form h2 {
   font-size: 1.5rem;
-  color: var(--text-dark);
+  color: var(--text-color);
   margin-bottom: 1.5rem;
 }
 
@@ -26,24 +26,25 @@
 
 .form-group label {
   font-weight: 600;
-  color: var(--text-dark);
+  color: var(--text-color);
   font-size: 1rem;
 }
 
 .form-group input,
 .form-group textarea {
   padding: 0.75rem;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--input-border);
   border-radius: 0.5rem;
   font-family: inherit;
   font-size: 1rem;
   transition: all 0.2s ease;
-  background: white;
+  background: var(--input-bg);
+  color: var(--text-color);
 }
 
 .form-group input:disabled,
 .form-group textarea:disabled {
-  background: var(--light-bg);
+  background: var(--bg-color);
   cursor: not-allowed;
   opacity: 0.6;
 }

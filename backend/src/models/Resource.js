@@ -19,6 +19,10 @@ const resourceSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  images: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Image'
+  }],
   createdAt: {
     type: Date,
     default: Date.now

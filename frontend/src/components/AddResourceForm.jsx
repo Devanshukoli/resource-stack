@@ -1,10 +1,48 @@
 import { useState } from 'react'
+import axios from 'axios'
 import './AddResourceForm.css'
 
 function AddResourceForm({ onAddResource }) {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [pastedImageIds, setPastedImageIds] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+
+  const handlePaste = async (e) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+    
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+            e.preventDefault();
+            const file = items[i].getAsFile();
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            try {
+                // To show loading state inline maybe
+                const uploadingText = '\n![Uploading image...]()';
+                setContent(prev => prev + uploadingText);
+                setIsLoading(true);
+
+                const res = await axios.post('/api/images', formData, {
+                  headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                
+                const data = res.data;
+                if (data.url) {
+                   setPastedImageIds(prev => [...prev, data.id]);
+                   setContent(prev => prev.replace(uploadingText, `\n![Image](${data.url})\n`));
+                }
+            } catch (err) {
+                alert('Failed to upload image');
+                setContent(prev => prev.replace('\n![Uploading image...]()', ''));
+            } finally {
+                setIsLoading(false);
+            }
+        }
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -19,10 +57,12 @@ function AddResourceForm({ onAddResource }) {
       await onAddResource({
         title: title.trim(),
         content: content.trim(),
-        isChecked: false
+        isChecked: false,
+        imageIds: pastedImageIds
       })
       setTitle('')
       setContent('')
+      setPastedImageIds([])
     } catch (error) {
       alert('Error adding resource. Try again.')
     } finally {
@@ -54,7 +94,8 @@ function AddResourceForm({ onAddResource }) {
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Paste your content here..."
+            onPaste={handlePaste}
+            placeholder="Paste your content or images here..."
             rows="5"
             disabled={isLoading}
           />

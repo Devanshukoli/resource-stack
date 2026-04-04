@@ -23,11 +23,13 @@
 }
 
 .resources-modal-content {
-  background: white;
+  background: var(--card-bg);
   height: 100vh;
   width: 100%;
   max-width: 500px;
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  color: var(--text-color);
+}
   display: flex;
   flex-direction: column;
   animation: slideInRight 0.3s ease-out;

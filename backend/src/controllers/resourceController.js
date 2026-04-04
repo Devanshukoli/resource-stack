@@ -1,4 +1,5 @@
 const Resource = require('../models/Resource');
+const Image = require('../models/Image');
 
 // Get all resources
 exports.getAllResources = async (req, res) => {
@@ -28,7 +29,7 @@ exports.getResourceById = async (req, res) => {
 // Create a new resource
 exports.createResource = async (req, res) => {
   try {
-    const { title, content, isChecked, feedback } = req.body;
+    const { title, content, isChecked, feedback, imageIds } = req.body;
 
     if (!title || !content) {
       return res.status(400).json({ message: 'Title and content are required' });
@@ -38,10 +39,20 @@ exports.createResource = async (req, res) => {
       title,
       content,
       isChecked: isChecked || false,
-      feedback: feedback || ''
+      feedback: feedback || '',
+      images: imageIds || []
     });
 
     await resource.save();
+
+    // Link images to this resource
+    if (imageIds && imageIds.length > 0) {
+      await Image.updateMany(
+        { _id: { $in: imageIds } },
+        { $set: { resourceId: resource._id } }
+      );
+    }
+
     res.status(201).json(resource);
   } catch (error) {
     res.status(500).json({ message: 'Error creating resource', error: error.message });
@@ -51,7 +62,7 @@ exports.createResource = async (req, res) => {
 // Update a resource
 exports.updateResource = async (req, res) => {
   try {
-    const { title, content, feedback, isChecked } = req.body;
+    const { title, content, feedback, isChecked, imageIds } = req.body;
     
     const resource = await Resource.findById(req.params.id);
 
@@ -63,6 +74,17 @@ exports.updateResource = async (req, res) => {
     if (content !== undefined) resource.content = content;
     if (feedback !== undefined) resource.feedback = feedback;
     if (isChecked !== undefined) resource.isChecked = isChecked;
+    
+    // Add new images if provided without wiping old ones? 
+    // Usually imageIds passed during an update are just the newly pasted ones.
+    // Let's union them.
+    if (imageIds && imageIds.length > 0) {
+      resource.images = [...new Set([...(resource.images || []), ...imageIds])];
+      await Image.updateMany(
+        { _id: { $in: imageIds } },
+        { $set: { resourceId: resource._id } }
+      );
+    }
 
     await resource.save();
     res.status(200).json(resource);

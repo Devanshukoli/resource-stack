@@ -1,11 +1,12 @@
 .resource-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-left: 4px solid var(--primary-color);
   transition: all 0.3s ease;
   animation: slideIn 0.3s ease-out;
+  color: var(--text-color);
 }
 
 @keyframes slideIn {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { ThemeProvider } from './contexts/ThemeContext'
 import AppHeader from './components/AppHeader'
 import ResourcesModal from './components/ResourcesModal'
 import AddResourceForm from './components/AddResourceForm'
@@ -64,31 +65,33 @@ function App() {
   }
 
   return (
-    <div className="app-container">
-      <AppHeader 
-        resourceCount={resources.length}
-        onOpenResources={() => setShowResourcesModal(true)}
-      />
-
-      <main className="app-main">
-        <div className="app-content">
-          <AddResourceForm onAddResource={handleAddResource} />
-        </div>
-      </main>
-
-      {showResourcesModal && (
-        <ResourcesModal
-          isOpen={showResourcesModal}
-          onClose={() => setShowResourcesModal(false)}
-          resources={resources}
-          onUpdateResource={handleUpdateResource}
-          onRemoveResource={handleRemoveResource}
-          onToggleCheck={handleToggleCheck}
+    <ThemeProvider>
+      <div className="app-container">
+        <AppHeader 
+          resourceCount={resources.length}
+          onOpenResources={() => setShowResourcesModal(true)}
         />
-      )}
 
-      <Footer />
-    </div>
+        <main className="app-main">
+          <div className="app-content">
+            <AddResourceForm onAddResource={handleAddResource} />
+          </div>
+        </main>
+
+        {showResourcesModal && (
+          <ResourcesModal
+            isOpen={showResourcesModal}
+            onClose={() => setShowResourcesModal(false)}
+            resources={resources}
+            onUpdateResource={handleUpdateResource}
+            onRemoveResource={handleRemoveResource}
+            onToggleCheck={handleToggleCheck}
+          />
+        )}
+
+        <Footer />
+      </div>
+    </ThemeProvider>
   )
 }
 

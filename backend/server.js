@@ -19,6 +19,9 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/resources', resourceRoutes);
 
+const imageRoutes = require('./src/routes/imageRoutes');
+app.use('/images', imageRoutes);
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ message: 'Server is running' });

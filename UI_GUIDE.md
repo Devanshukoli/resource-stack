@@ -62,6 +62,8 @@
 ### 1. **Header Section**
 - Title: "📚 Resource Stack"
 - Subtitle: "Organize and manage your resources with ease"
+- **Theme Toggle**: 🌙/☀️ button to switch between light and dark themes
+- **My Resources Button**: Shows count of saved resources
 - Gradient background for visual appeal
 
 ### 2. **Add Resource Form**

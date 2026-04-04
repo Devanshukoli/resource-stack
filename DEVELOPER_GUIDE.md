@@ -1,5 +1,30 @@
 # Developer Guide - Extending Resource Stack
 
+## 🎨 Theming System
+
+The app supports light and dark themes using CSS custom properties. Theme state is managed via React Context (`ThemeContext`) and persisted in localStorage.
+
+### Adding Theme Support to New Components
+
+1. Use theme variables in CSS:
+   ```css
+   .my-component {
+     background: var(--card-bg);
+     color: var(--text-color);
+     border: 1px solid var(--input-border);
+   }
+   ```
+
+2. Available theme variables:
+   - `--bg-color`: Page background
+   - `--text-color`: Primary text color
+   - `--card-bg`: Card/component backgrounds
+   - `--input-bg`: Form input backgrounds
+   - `--input-border`: Form input borders
+   - `--header-bg`: Header background (gradient)
+
+3. Theme toggle automatically applies `.dark-theme` class to `<body>` for dark mode styles.
+
 ## 🔧 How to Add Features
 
 ### Feature: Add Categories/Tags
